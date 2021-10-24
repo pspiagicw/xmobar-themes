@@ -1,0 +1,43 @@
+Config { font = "xft:Iosevka:pixelsize=14:antialiasing=true:hinting=true"
+       , additionalFonts = [ "xft:Mononoki:pixelsize=14:antialias=true:hinting=true"
+	    , "xft:Font Awesome 5 Free Solid:pixelsize=14"
+	    , "xft:Font Awesome 5 Brands:pixelsize=14"
+	    ]
+       , borderColor = "#282a36"
+       , bgColor = "#282a36"
+       , fgColor = "#f8f2f2"
+       , borderWidth = 2
+       , border = BottomB
+       , alpha = 255
+       , position = TopSize C 100 30
+       , textOffset = -1
+       , iconOffset = -1
+       , lowerOnStart = False
+       , pickBroadest = False
+       , persistent = False
+       , hideOnStart = False
+       , iconRoot = "/home/pspiagicw/.config/xmobar/"
+       , allDesktops = True
+       , overrideRedirect = True
+       , commands = [ Run Cpu ["-L","3","-H","50","--normal","#282a36,#50fa7b","--high","#000000,#50fa7b","--low","#282a36,#50fa7b","--template","<fc=#282a36,#50fa7b><total>%</fc>"] 100
+                    , Run Memory ["--template","<fc=#282a36,#ffb86c> <used> MB </fc>","-L","3","-H","50","--low","#282a36,#ffb86c","--normal","#282a36,#ffb86c","--high","#282a36,#ffb86c"] 100
+                    , Run Date "<fc=#ffffff>%H:%M </fc>" "date" 100
+                    , Run Battery ["--template","<fc=#ffffff><left>%</fc>","-L","15","-H","70","--low","#ffffff","--normal","#ffffff","--high","#ffffff"] 600
+		    , Run MPD ["-t","<fc=#ffffff><artist> - <title></fc>"] 10
+                    , Run UnsafeStdinReader
+                    , Run Com "get-wifi-name" ["--lower"] "wifi" 100
+                    , Run ComX "get-volume-percent" ["--integer"] "--MUTE--" "volume" 5
+		    , Run Com "echo" [" <fn=2>\xf1eb</fn> "] "wifi_icon" 36000
+		    , Run Com "echo" [" <fn=2>\xf011</fn> "] "poweroff_icon" 36000
+		    , Run Com "echo" [" <fn=2>\xf028</fn> "] "volume_icon" 36000
+		    , Run Com "echo" ["<fn=2>\xf108</fn>"] "gpu_icon" 36000
+		    , Run Com "echo" [" <fn=2>\xf242</fn> "] "battery_icon" 36000
+		    , Run Com "echo" [" <fn=2>\xf001</fn> "] "music_icon" 36000
+		    , Run Com "echo" [" <fn=2>\xf017</fn> "] "clock_icon" 36000
+		    , Run Com "echo" [" <fn=3>\xf7df</fn> "] "ubuntu" 36000
+		    , Run Com "echo" [" <fn=2>\xf0d7</fn> "] "drop" 36000
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = " } %music_icon% %mpd% { %volume_icon% %volume% %battery_icon% %battery% %wifi_icon% %wifi% %clock_icon% %date% %poweroff_icon%"
+       }

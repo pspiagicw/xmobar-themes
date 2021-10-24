@@ -1,0 +1,43 @@
+Config { font = "xft:JetBrains Mono:style=bold:pixelsize=12:antialiasing=true:hinting=true"
+       , additionalFonts = [ "xft:Mononoki:pixelsize=11:antialias=true:hinting=true"
+	    , "xft:Font Awesome 5 Free Solid:pixelsize=12"
+	    , "xft:Font Awesome 5 Brands:pixelsize=12"
+	    ]
+       , borderColor = "#282a36"
+       , bgColor = "#282a36"
+       , fgColor = "#f8f2f2"
+       , borderWidth = 2
+       , border = BottomB
+       , alpha = 255
+       , position = Top
+       , textOffset = -1
+       , iconOffset = -1
+       , lowerOnStart = True
+       , pickBroadest = False
+       , persistent = False
+       , hideOnStart = False
+       , iconRoot = "/home/pspiagicw/.config/xmobar/"
+       , allDesktops = True
+       , overrideRedirect = True
+       , commands = [ Run Cpu ["-L","3","-H","50","--normal","#ffb86c","--high","#ff5555","--low","#50fa7b","--template","<fn=2>\xf2db</fn> <fc=#ffb86c>CPU</fc>: <total>%"] 100
+                    , Run Memory ["--template","<fc=#50fa7b><fn=2>\xf538</fn> MEM</fc>: <usedratio>%","-L","3","-H","50","--low","#50fa7b","--normal","#ffb86c","--high","#ff5555"] 100
+                    , Run Date "<fc=#ff79c6><fn=2>\xf017</fn> %H:%M</fc>" "date" 100
+                    , Run Battery ["--template","<fc=#bd93f9><fn=2>\xf242</fn> BAT: </fc><left>%","-L","15","-H","70","--low","#ff5555","--normal","#ffb86c","--high","#50fa7b"] 600
+		    , Run MPD ["-t","<fc=#ff79c6><fn=2>\xf001</fn> MPD:</fc> <fc=#ffb86c><title> (<state>)</fc>"] 10
+                    , Run UnsafeStdinReader
+                    , Run Com "get-wifi-name" [] "wifi" 100
+                    , Run ComX "get-volume-percent" [] "--MUTE--" "volume" 5
+                    , Run Com "get-cpu-temp" [] "cpu_temp" 300
+		    , Run Com "echo" ["<fn=2>\xf1eb</fn>"] "wifi_icon" 36000
+		    , Run Com "echo" ["<fn=2>\xf028</fn>"] "volume_icon" 36000
+		    , Run Com "echo" ["<fn=2>\xf108</fn>"] "gpu_icon" 36000
+                    , Run Com "get-cpu-freq" [] "cpu_freq" 600
+		    , Run Com "get-gpu-perc" [] "gpu_perc" 200
+		    , Run Com "get-gpu-mem" [] "gpu_mem" 200
+		    , Run Com "get-gpu-temp" [] "gpu_temp" 300
+		    , Run Swap ["--template","<fc=#ff79c6>SWP</fc>: <usedratio>%","-L","15","-H","70","--low","#50fa7b","--normal","#ffb86c","--high","#ff5555"] 600
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "<action=`rofi -show-icons -show drun -theme ~/.config/rofi/launcher.rasi`><icon=haskell_20.xpm/></action> | %UnsafeStdinReader% }{ <action=`toggle-music-widget`>%mpd%</action> | <action=`alacritty -e pulsemixer`><fc=#bd93f9>%volume_icon% VOL: %volume%</fc></action> | <action=`alacritty -e nmtui`> <fc=#ffb86c>%wifi_icon%  WIFI: <fc=#50fa7b>%wifi%</fc> </fc></action> | <action=`toggle-system-widget`>%cpu%(%cpu_temp%) @ %cpu_freq% </action>| <fc=#ff5555>%gpu_icon% GPU:</fc> %gpu_perc% (%gpu_temp%) | %memory%/%swap%/<fc=#ff79c6>GPU: </fc>%gpu_mem%| %battery% | %date% "
+       }
